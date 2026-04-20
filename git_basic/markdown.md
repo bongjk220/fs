@@ -61,5 +61,11 @@ console.log("hello."+name);
 [메가박스]<https://megabox-kr.onrender.com, "클릭하면 포트폴리오를 확인할 수 있습니다.">
 
 ### 이미지
-![마크다운](https://bongjk220.github.io/fs/git_basic/img.png)
-![마크다운](https://choonghyunryu.github.io/posts/2022-03-09-understand-markdown/img/markdown.png)
+![마크다운|200](https://bongjk220.github.io/fs/git_basic/img.png)
+![마크다운|200](https://choonghyunryu.github.io/posts/2022-03-09-understand-markdown/img/markdown.png)
+
+### 이모지
+`:joy:`
+`윈도우+.`
+:joy:😍😊window+.
+🐱‍👓🐱‍🐉💖😎🤞🤦‍♀️🤷‍♀️🤷‍♂️💖😢🎶👍😁😁😉💋(●'◡'●)(●'◡'●)(*/ω＼*):-):-)›<>

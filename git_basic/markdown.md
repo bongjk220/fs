@@ -61,5 +61,5 @@ console.log("hello."+name);
 [메가박스]<https://megabox-kr.onrender.com, "클릭하면 포트폴리오를 확인할 수 있습니다.">
 
 ### 이미지
-![마크다운](https://bongjk220.github.io/fs/img.png)
-![마크다운](https://cryptosalamander.tistory.com/110)
+![마크다운](https://bongjk220.github.io/fs/git_basic/img.png)
+![마크다운](https://www.pngwing.com/ko/search?q=%EB%A7%88%ED%81%AC+%EB%8B%A4%EC%9A%B4)

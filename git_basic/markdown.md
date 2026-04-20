@@ -61,7 +61,4 @@ console.log("hello."+name);
 [메가박스]<https://megabox-kr.onrender.com, "클릭하면 포트폴리오를 확인할 수 있습니다.">
 
 ### 이미지
-'''
-    ![대체텍스트](이미지경로)
-'''
 ![대체텍스트](https://cryptosalamander.tistory.com/110)

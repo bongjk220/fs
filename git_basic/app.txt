@@ -1,3 +1,1 @@
-"Hello Git"
-Version 2
-Version 3
+Hello Git

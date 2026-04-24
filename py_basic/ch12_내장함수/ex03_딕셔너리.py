@@ -44,3 +44,49 @@ print(a)
 # values()
 # items()
 
+a = {
+    'name':'hong',
+    'age':30,
+    'phone':'010-1234-56789',
+    'birth':'1118',
+    'email': ''
+}
+
+# clear : 모든 아이템 삭제
+# get : key로 value얻기
+print(a['name']) # hong
+# get
+print(a.get['name']) # hong
+# 없는키를 사용하면
+# print(a.[]) # error
+print(a.get('zipcode')) # None
+
+# get(키, 기본값(default값))
+print(a.get('address', '경기도 성남시 분당구')) #성남시 분당구
+print(a.get('zipcode', '12820')) # 12820
+
+# in 키워드 : 키의 유무, 있으면 True, 없음 False
+print('name' in a) # True
+print('zipcode' in a) # False
+
+# keys(), values(), items()
+print(a.keys()) # dict_keys(['name', 'age', 'phone', 'birth', 'email'])
+print(a.values()) # dict_values(['hong', 30, '010-1234-56789', '1118', ''])
+print(a.items()) # dict_items([('name', 'hong'), ('age', 30), ('phone', '010-1234-56789'), ('birth', '1118'), ('email', '')])
+
+# pop(키) : 키로 값얻기(잘라내기)
+# email = a.pop('email') # KeyError
+print(a.pop('name')) # hong
+print(a.pop('email','정보없음')) # 정보없음
+print(a) # {'age': 30, 'phone': '010-1234-56789', 'birth': '1118', 'email': '', 'zipcode': None}
+
+# popitem() : 가장 최가로 이상한 아이템 삭제
+print(a.popitem()) # ('email', '')
+print(a) # {'age': 30, 'phone': '010-1234-56789', 'birth': '1118', 'zipcode': None}
+
+# update(딕셔너리) : 합치기
+a = {1:'a', 2:'b'}
+b = {3:'c', 4:'d'}
+a.update(b)
+print(a) # {1: 'a', 2: 'b', 3: 'c', 4: 'd'}
+

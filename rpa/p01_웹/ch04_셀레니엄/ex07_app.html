@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium Explicit Wait Test</title>
+    <script>
+        function showMessage() {
+            // 버튼 클릭 후 3초 뒤 <h2>Hello</h2> 추가
+            setTimeout(() => {
+                const h2 = document.createElement('h2');
+                h2.textContent = 'Hello';
+                document.body.appendChild(h2);
+            }, 3000);
+        }
+    </script>
+</head>
+<body>
+    <h1>명시적 대기 실습</h1>
+    <p>버튼을 누르면 3초 뒤에 "Hello"가 나타납니다.</p>
+    <button onclick="showMessage()">Try it</button>
+</body>
+</html>

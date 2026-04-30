@@ -6,9 +6,7 @@ iter_content()
 os.path.basename("url") -> xxx.png
 os.path.join(디렉토리, 파일명)
 '''
-
-import requests
-import os
+import requests, os
 
 image_url = "//imgs.xkcd.com/comics/piercing.png"
 #image_url = "//imgs.xkcd.com/comics/soniferous_aether.png"
@@ -17,7 +15,6 @@ if not image_url.startswith("http"):
     image_url = "https:" + image_url
 
 try:
-
     # 현재 실행 중인 .py 파일의 절대 경로를 가져옵니다.
     current_file_path = os.path.abspath(__file__)
     print(current_file_path)

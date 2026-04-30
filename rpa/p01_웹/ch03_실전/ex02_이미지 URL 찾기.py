@@ -6,7 +6,7 @@
 
 import requests, os, bs4
 
-#target_url = "https://xkc111d.com"
+#target_url = "https://xkcd.com"
 target_url = "https://123456"
 
 # 현재 실행 중인 .py 파일의 절대 경로를 가져옵니다.

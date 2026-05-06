@@ -1,684 +1,761 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>봉재근 | Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Pretendard:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --cream:   #f5f0e8;
-      --cream2:  #ede7d9;
-      --white:   #fdfcf9;
-      --ink:     #1a1814;
-      --ink2:    #3d3830;
-      --muted:   #9a9185;
-      --border:  rgba(26,24,20,0.10);
-      --accent:  #d4622a;
-      --accent2: #2a7dd4;
-      --green:   #2ab87a;
-      --serif:   'Instrument Serif', serif;
-      --sans:    'Pretendard', 'Apple SD Gothic Neo', sans-serif;
-      --mono:    'DM Mono', monospace;
-      --r:       16px;
-      --r2:      24px;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>봉재근 | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f1ec;
+  --white:#fdfcf9;
+  --ink:#0f0e0c;
+  --ink2:#2c2a26;
+  --muted:#8c8880;
+  --border:#e0dbd2;
+  --accent:#c8502a;
+  --accent-l:#f5e8e3;
+  --blue:#2653c8;
+  --blue-l:#e5eaf5;
+  --green:#1e8a55;
+  --green-l:#e5f5ee;
+  --serif:'Playfair Display',Georgia,serif;
+  --body:'Outfit',sans-serif;
+  --mono:'DM Mono',monospace;
+  --card-r:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+/* ── NOISE ── */
+body::after{
+  content:'';position:fixed;inset:0;z-index:999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.35;
+}
 
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--sans);
-      font-size: 15px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-    }
+/* ── MOUSE GLOW ── */
+#glow{
+  position:fixed;z-index:0;pointer-events:none;
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,80,42,.065) 0%,transparent 70%);
+  transform:translate(-50%,-50%);
+  transition:transform .15s ease;
+}
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
-      z-index: 300;
-      display: flex; align-items: center; gap: 0.3rem;
-      background: rgba(253,252,249,0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 0.45rem 0.45rem 0.45rem 1.2rem;
-      box-shadow: 0 4px 24px rgba(26,24,20,0.08);
-    }
-    .nav-name {
-      font-family: var(--serif);
-      font-size: 1rem;
-      color: var(--ink);
-      margin-right: 0.8rem;
-    }
-    .nav-links { display: flex; gap: 0.15rem; }
-    .nav-links a {
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--muted);
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    .nav-links a:hover { background: var(--cream2); color: var(--ink); }
-    .nav-cta {
-      padding: 0.4rem 1.1rem !important;
-      background: var(--ink) !important;
-      color: var(--white) !important;
-      border-radius: 999px;
-      font-size: 0.8rem !important;
-      font-weight: 600 !important;
-    }
-    .nav-cta:hover { background: var(--ink2) !important; }
+/* ── NAV ── */
+nav{
+  position:fixed;top:1.2rem;left:50%;transform:translateX(-50%);
+  z-index:300;
+  display:flex;align-items:center;gap:.3rem;
+  background:rgba(253,252,249,.88);
+  backdrop-filter:blur(18px);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:.5rem .5rem .5rem 1.4rem;
+  box-shadow:0 4px 28px rgba(15,14,12,.07);
+}
+.nav-logo{
+  font-family:var(--serif);font-size:1rem;font-weight:700;
+  color:var(--ink);text-decoration:none;margin-right:.8rem;
+}
+.nav-links{display:flex;gap:.1rem;list-style:none}
+.nav-links a{
+  padding:.38rem .9rem;border-radius:999px;
+  font-size:.78rem;font-weight:500;color:var(--muted);
+  text-decoration:none;transition:all .2s;
+}
+.nav-links a:hover{background:var(--accent-l);color:var(--accent)}
+.nav-pill{
+  padding:.42rem 1.2rem !important;
+  background:var(--ink) !important;color:var(--white) !important;
+  border-radius:999px !important;font-weight:600 !important;
+}
+.nav-pill:hover{background:var(--accent) !important;color:#fff !important}
 
-    /* ── PAGE WRAPPER ── */
-    .page { max-width: 1140px; margin: 0 auto; padding: 6.5rem 1.5rem 4rem; }
+/* ── PAGE ── */
+.page{max-width:1160px;margin:0 auto;padding:6rem 1.5rem 4rem;position:relative;z-index:1}
 
-    /* ── HERO ── */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      gap: 2rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 1.5rem;
-    }
+/* ── HERO ── */
+.hero{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;
+  margin-bottom:1.2rem;
+}
 
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      margin-bottom: 1rem;
-      letter-spacing: 0.04em;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: block; width: 6px; height: 6px;
-      border-radius: 50%; background: var(--accent);
-      animation: pulse 2s ease infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+/* hero cards */
+.hcard{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--card-r);
+  padding:2.2rem;
+  overflow:hidden;position:relative;
+}
 
-    .hero-name {
-      font-family: var(--serif);
-      font-size: clamp(4rem, 10vw, 8rem);
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      color: var(--ink);
-    }
-    .hero-name em { font-style: italic; color: var(--accent); }
+/* H1 — name big */
+.hc-name{
+  grid-column:span 1;
+  background:var(--ink);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:320px;
+}
+.hc-name .tag{
+  font-family:var(--mono);font-size:.68rem;color:rgba(255,255,255,.4);
+  letter-spacing:.08em;margin-bottom:auto;
+  display:flex;align-items:center;gap:.5rem;
+}
+.hc-name .tag::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--accent);animation:pulse 2s ease infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hc-name h1{
+  font-family:var(--serif);
+  font-size:clamp(3.2rem,7vw,6rem);
+  font-weight:900;line-height:.9;
+  letter-spacing:-.04em;
+  color:var(--white);
+}
+.hc-name h1 em{font-style:italic;color:var(--accent)}
 
-    .hero-right { text-align: right; }
-    .hero-role {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .hero-desc { font-size: 0.9rem; color: var(--ink2); max-width: 260px; margin-left: auto; }
+/* H2 — role / desc */
+.hc-desc{
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:320px;
+}
+.hc-desc .role{
+  font-family:var(--mono);font-size:.72rem;
+  color:var(--muted);letter-spacing:.06em;text-transform:uppercase;
+}
+.hc-desc .desc{
+  font-size:1.05rem;color:var(--ink2);line-height:1.8;
+}
+.hc-desc .cta-row{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn-dark{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--ink);color:var(--white);
+  text-decoration:none;padding:.75rem 1.6rem;
+  border-radius:999px;font-size:.8rem;font-weight:600;
+  transition:all .22s;
+}
+.btn-dark:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 28px rgba(200,80,42,.28)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:transparent;color:var(--ink2);
+  text-decoration:none;padding:.75rem 1.6rem;
+  border-radius:999px;font-size:.8rem;font-weight:500;
+  border:1px solid var(--border);transition:all .22s;
+}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-2px)}
 
-    /* ── BENTO GRID ── */
-    .bento {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: minmax(80px, auto);
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+/* H3 — stat cards row */
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:1.2rem}
+.stat-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--card-r);padding:1.6rem 1.8rem;
+  display:flex;flex-direction:column;gap:.4rem;
+  transition:transform .22s,box-shadow .22s;
+}
+.stat-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(15,14,12,.08)}
+.stat-num{
+  font-family:var(--serif);font-size:3rem;font-weight:900;
+  line-height:1;letter-spacing:-.04em;color:var(--ink);
+}
+.stat-num span{font-style:italic;color:var(--accent)}
+.stat-label{font-size:.8rem;color:var(--muted)}
 
-    .card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--r2);
-      padding: 1.8rem;
-      overflow: hidden;
-      position: relative;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(26,24,20,0.10);
-    }
+/* ── SECTION TITLE ── */
+.sec-head{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:1.5rem;
+}
+.sec-num{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.1em}
+.sec-title{
+  font-family:var(--serif);
+  font-size:clamp(1.6rem,3.5vw,2.6rem);
+  font-weight:700;font-style:italic;
+  letter-spacing:-.02em;
+}
+.sec-hr{flex:1;height:1px;background:var(--border)}
 
-    /* CARD SPANS */
-    .c-intro    { grid-column: span 7; grid-row: span 3; background: var(--ink); color: var(--white); }
-    .c-stack    { grid-column: span 5; grid-row: span 2; }
-    .c-available{ grid-column: span 5; grid-row: span 1; background: var(--green); color: var(--white); }
-    .c-career   { grid-column: span 8; grid-row: span 4; }
-    .c-skills   { grid-column: span 4; grid-row: span 4; background: var(--cream2); }
-    .c-github   { grid-column: span 4; grid-row: span 2; background: var(--accent2); color: var(--white); }
-    .c-projects { grid-column: span 8; grid-row: span 1; }
-    .c-proj1    { grid-column: span 4; grid-row: span 3; }
-    .c-proj2    { grid-column: span 4; grid-row: span 3; }
-    .c-proj3    { grid-column: span 4; grid-row: span 3; }
-    .c-contact  { grid-column: span 12; grid-row: span 2; background: var(--ink); color: var(--white); }
+/* ── SECTION SPACING ── */
+.section{padding:3.5rem 0}
 
-    /* ── CARD: INTRO ── */
-    .c-intro .card-tag {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.08em;
-      margin-bottom: 1.5rem;
-    }
-    .c-intro .big-text {
-      font-family: var(--serif);
-      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-      font-weight: 400;
-    }
-    .c-intro .big-text em { font-style: italic; color: rgba(255,255,255,0.55); }
-    .c-intro p {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.6);
-      max-width: 380px;
-      line-height: 1.75;
-    }
+/* ── ABOUT CARDS ── */
+.about-grid{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem}
+.about-bio-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--card-r);padding:2.4rem;
+}
+.about-bio-card p{font-size:1rem;color:var(--ink2);line-height:1.85}
+.about-bio-card p+p{margin-top:1rem}
+.about-bio-card strong{color:var(--accent)}
 
-    /* ── CARD: STACK ── */
-    .card-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-    .stack-ratio {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 1.2rem;
-    }
-    .ratio-bar {
-      flex: 1; height: 8px;
-      border-radius: 999px;
-      background: var(--cream2);
-      overflow: hidden;
-    }
-    .ratio-fill {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 1s cubic-bezier(.16,1,.3,1);
-    }
-    .ratio-fill.animate { transform: scaleX(1); }
-    .ratio-label { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+.about-info-card{
+  background:var(--ink);border:1px solid var(--border);
+  border-radius:var(--card-r);padding:2rem;
+  display:flex;flex-direction:column;gap:.1rem;
+}
+.info-row{
+  padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.07);
+}
+.info-row:last-child{border-bottom:none}
+.info-k{font-family:var(--mono);font-size:.62rem;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem}
+.info-v{font-size:.85rem;color:rgba(255,255,255,.8);font-weight:400}
 
-    .stack-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .chip {
-      padding: 0.2rem 0.7rem;
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 0.72rem;
-      color: var(--ink2);
-      font-family: var(--mono);
-      transition: all 0.2s;
-      cursor: default;
-    }
-    .chip:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+/* ── CAREER CARDS ── */
+.career-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.career-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--card-r);padding:1.8rem;
+  display:flex;flex-direction:column;
+  transition:transform .22s,box-shadow .22s,border-color .22s;
+  cursor:default;
+  opacity:0;transform:translateY(14px);
+}
+.career-card.visible{opacity:1;transform:none}
+.career-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 48px rgba(15,14,12,.1);
+  border-color:rgba(200,80,42,.25);
+}
+.career-card.current{background:var(--accent);border-color:var(--accent)}
+.career-card.current .cc-year,.career-card.current .cc-org,.career-card.current .cc-role{color:var(--white)}
+.career-card.current .cc-dot{background:rgba(255,255,255,.6)}
+.cc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto}
+.cc-year{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.06em}
+.cc-dot{width:8px;height:8px;border-radius:50%;background:var(--border);margin-top:.3rem}
+.career-card.current .cc-dot{background:rgba(255,255,255,.5);animation:pulse 2s infinite}
+.cc-org{
+  font-family:var(--serif);font-size:1.3rem;font-weight:700;
+  letter-spacing:-.01em;margin:1.5rem 0 .4rem;
+}
+.cc-role{font-size:.78rem;color:var(--muted);line-height:1.55}
 
-    /* ── CARD: AVAILABLE ── */
-    .c-available {
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .avail-text {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      font-weight: 400;
-    }
-    .avail-dot {
-      width: 40px; height: 40px;
-      background: rgba(255,255,255,0.25);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-    }
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.skill-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--card-r);padding:1.8rem;
+  transition:transform .22s,box-shadow .22s;
+  opacity:0;transform:translateY(12px);
+}
+.skill-card.visible{opacity:1;transform:none}
+.skill-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(15,14,12,.08)}
+.sk-cat{
+  font-family:var(--mono);font-size:.66rem;
+  color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:1rem;padding-bottom:.8rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sk-dot{width:8px;height:8px;border-radius:50%}
+.sk-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.skt{
+  padding:.22rem .65rem;border-radius:6px;
+  font-size:.72rem;font-weight:500;
+  transition:transform .15s;cursor:default;
+}
+.skt:hover{transform:scale(1.06)}
+.skt.fe{background:var(--accent-l);color:#8a2e10}
+.skt.be{background:var(--green-l);color:#155a35}
+.skt.db{background:#fdf5e0;color:#7a5500}
+.skt.da{background:var(--blue-l);color:#1a3a9a}
+.skt.os{background:#f5eaf5;color:#6a1a7a}
 
-    /* ── CARD: CAREER ── */
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-    .tl-item {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 1rem;
-      padding: 0.9rem 0;
-      border-bottom: 1px solid var(--border);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.45s ease;
-    }
-    .tl-item:last-child { border-bottom: none; }
-    .tl-item.visible { opacity: 1; transform: none; }
-    .tl-year {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      padding-top: 0.15rem;
-    }
-    .tl-org { font-weight: 600; font-size: 0.9rem; color: var(--ink); }
-    .tl-role { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
 
-    /* ── CARD: SKILLS ── */
-    .skill-group { margin-bottom: 1.2rem; }
-    .skill-group:last-child { margin-bottom: 0; }
-    .skill-group-name {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.5rem;
-    }
-    .skill-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .schip {
-      padding: 0.18rem 0.55rem;
-      border-radius: 6px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      cursor: default;
-      transition: transform 0.15s;
-    }
-    .schip:hover { transform: scale(1.06); }
-    .schip.fe { background: #fff0eb; color: #c04a15; }
-    .schip.be { background: #edfaf3; color: #1a8a55; }
-    .schip.db { background: #fffbeb; color: #92690a; }
-    .schip.da { background: #f0ebff; color: #6931c7; }
-    .schip.os { background: #ffebed; color: #c0152a; }
+.proj-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--card-r);overflow:hidden;
+  transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s,border-color .28s;
+  text-decoration:none;color:inherit;display:flex;flex-direction:column;
+  opacity:0;transform:translateY(14px);
+}
+.proj-card.visible{opacity:1;transform:none}
+.proj-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(15,14,12,.12);
+  border-color:rgba(200,80,42,.2);
+}
 
-    /* ── CARD: GITHUB ── */
-    .c-github {
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .github-big {
-      font-family: var(--serif);
-      font-size: 2.2rem;
-      font-style: italic;
-      color: rgba(255,255,255,0.9);
-      line-height: 1.1;
-    }
-    .github-link {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.65);
-      text-decoration: none;
-      display: flex; align-items: center; gap: 0.4rem;
-      transition: color 0.2s;
-    }
-    .github-link:hover { color: #fff; }
+.proj-thumb{
+  height:200px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:3.5rem;position:relative;overflow:hidden;
+  flex-shrink:0;
+}
+.proj-thumb-emoji{transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.proj-card:hover .proj-thumb-emoji{transform:scale(1.2) rotate(-6deg)}
 
-    /* ── CARD: PROJECTS HEADER ── */
-    .c-projects {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.2rem 1.8rem;
-    }
-    .c-projects h2 {
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      font-style: italic;
-    }
-    .proj-count {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
+.pt-1{background:linear-gradient(135deg,#fde8dc,#f5c4a0)}
+.pt-2{background:linear-gradient(135deg,#dce8ff,#b8cbff)}
+.pt-3{background:linear-gradient(135deg,#e8f5e0,#c0f0a0)}
+.pt-4{background:linear-gradient(135deg,#fff0dc,#ffe0a0)}
 
-    /* ── PROJECT CARDS ── */
-    .proj-thumb {
-      height: 130px;
-      border-radius: 12px;
-      margin-bottom: 1.2rem;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .proj-thumb::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
-    }
-    .p1 .proj-thumb { background: linear-gradient(135deg, #fde8dc, #f5c4a8); }
-    .p2 .proj-thumb { background: linear-gradient(135deg, #dceeff, #b8daff); }
-    .p3 .proj-thumb { background: linear-gradient(135deg, #dcffe8, #a8f0c4); }
-    .proj-badge {
-      position: absolute; top: 0.7rem; right: 0.7rem;
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      padding: 0.2rem 0.5rem;
-      background: rgba(255,255,255,0.7);
-      border-radius: 6px;
-      color: var(--ink2);
-      letter-spacing: 0.04em;
-    }
-    .proj-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; }
-    .proj-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem; }
-    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-    .ptag {
-      font-size: 0.65rem;
-      padding: 0.12rem 0.45rem;
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--muted);
-      font-family: var(--mono);
-    }
+.proj-badge-wrap{
+  position:absolute;top:.9rem;left:.9rem;
+  display:flex;gap:.4rem;
+}
+.proj-badge{
+  font-family:var(--mono);font-size:.62rem;
+  padding:.2rem .55rem;border-radius:999px;
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(8px);
+  color:var(--ink2);letter-spacing:.04em;
+}
 
-    /* ── CARD: CONTACT ── */
-    .c-contact {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 2rem;
-    }
-    .contact-headline {
-      font-family: var(--serif);
-      font-size: clamp(1.8rem, 4vw, 3.2rem);
-      font-style: italic;
-      line-height: 1.1;
-      color: var(--white);
-    }
-    .contact-headline span { color: rgba(255,255,255,0.4); }
-    .contact-links { display: flex; flex-direction: column; gap: 0.6rem; text-align: right; }
-    .clink {
-      text-decoration: none;
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.6);
-      transition: color 0.2s;
-      display: flex; align-items: center; gap: 0.4rem; justify-content: flex-end;
-    }
-    .clink:hover { color: #fff; }
+.proj-body{padding:1.6rem;flex:1;display:flex;flex-direction:column;gap:.8rem}
+.proj-title{
+  font-family:var(--serif);font-size:1.3rem;
+  font-weight:700;letter-spacing:-.02em;line-height:1.2;
+}
+.proj-desc{font-size:.82rem;color:var(--muted);line-height:1.7;flex:1}
+.proj-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:.8rem;border-top:1px solid var(--border);
+}
+.proj-tags2{display:flex;flex-wrap:wrap;gap:.3rem}
+.ptag{
+  font-family:var(--mono);font-size:.62rem;
+  padding:.12rem .45rem;border-radius:5px;
+  background:var(--bg);border:1px solid var(--border);
+  color:var(--muted);
+}
+.proj-arrow{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;color:var(--muted);
+  transition:all .2s;flex-shrink:0;
+}
+.proj-card:hover .proj-arrow{background:var(--ink);color:var(--white);border-color:var(--ink)}
 
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-    }
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.contact-main-card{
+  background:var(--ink);border-radius:var(--card-r);
+  padding:2.8rem;display:flex;flex-direction:column;justify-content:space-between;
+  min-height:300px;
+}
+.contact-headline{
+  font-family:var(--serif);
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:700;font-style:italic;
+  line-height:1.1;letter-spacing:-.02em;
+  color:var(--white);
+}
+.contact-headline em{color:var(--accent);font-style:normal}
+.contact-sub{font-size:.88rem;color:rgba(255,255,255,.45);line-height:1.75;margin-top:.8rem}
+.contact-cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.btn-accent{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--accent);color:var(--white);
+  text-decoration:none;padding:.75rem 1.6rem;
+  border-radius:999px;font-size:.8rem;font-weight:600;
+  transition:all .22s;
+}
+.btn-accent:hover{background:#e05e35;transform:translateY(-2px)}
 
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0; transform: translateY(16px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible { opacity: 1; transform: none; }
+.contact-links-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--card-r);padding:2rem;
+  display:flex;flex-direction:column;gap:0;
+}
+.clink{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 0;border-bottom:1px solid var(--border);
+  text-decoration:none;color:var(--ink2);
+  font-size:.88rem;transition:all .18s;
+}
+.clink:first-child{padding-top:.2rem}
+.clink:last-child{border-bottom:none}
+.clink:hover{color:var(--accent);padding-left:.4rem}
+.clink-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--bg);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;flex-shrink:0;transition:all .18s;
+}
+.clink:hover .clink-icon{background:var(--accent-l);border-color:var(--accent)}
+.clink-text{}
+.clink-label{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.06em;margin-bottom:.1rem}
+.clink-val{font-size:.85rem;font-weight:500}
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { width: 94vw; }
-      .nav-links a:not(.nav-cta):not(:last-child) { display: none; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { text-align: left; }
-      .hero-desc { margin-left: 0; max-width: 100%; }
-      .bento { grid-template-columns: 1fr 1fr; }
-      .c-intro,.c-stack,.c-available,.c-career,.c-skills,.c-github,.c-projects,.c-proj1,.c-proj2,.c-proj3,.c-contact {
-        grid-column: span 2; grid-row: span 1;
-      }
-      .c-contact { grid-template-columns: 1fr; }
-      .contact-links { text-align: left; }
-      .clink { justify-content: flex-start; }
-    }
-  </style>
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:2rem;
+  font-family:var(--mono);font-size:.66rem;
+  color:var(--muted);letter-spacing:.08em;
+  border-top:1px solid var(--border);
+  margin-top:1.2rem;
+}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .nav-links li:not(:last-child){display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .career-grid,.skills-grid,.projects-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .career-grid,.skills-grid,.projects-grid,.hero-stats{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
-<!-- NAV (pill) -->
+<div id="glow"></div>
+
+<!-- NAV -->
 <nav>
-  <span class="nav-name">봉재근</span>
-  <div class="nav-links">
-    <a href="#career">경력</a>
-    <a href="#skills">기술</a>
-    <a href="#projects">프로젝트</a>
-    <a href="mailto:bongjk220@gmail.com" class="nav-cta">연락하기 →</a>
-  </div>
+  <a class="nav-logo" href="#home">Home</a>
+  <ul class="nav-links">
+    <li><a href="#about">소개</a></li>
+    <li><a href="#career">경력</a></li>
+    <li><a href="#skills">기술</a></li>
+    <li><a href="#projects">포트폴리오</a></li>
+    <li><a href="#contact" class="nav-pill">연락 →</a></li>
+  </ul>
 </nav>
 
 <div class="page">
 
-  <!-- HERO -->
-  <header class="hero">
-    <div>
-      <div class="hero-eyebrow">구직 중 · 풀스택 개발자</div>
-      <h1 class="hero-name">봉<em>재근</em></h1>
-    </div>
-    <div class="hero-right">
-      <div class="hero-role">Frontend 30% · Backend 70%</div>
-      <p class="hero-desc">사용자 경험을 최우선으로 생각하며, 효율적이고 직관적인 솔루션을 만드는 개발자입니다.</p>
-    </div>
-  </header>
-
-  <!-- BENTO GRID -->
-  <div class="bento">
-
-    <!-- INTRO -->
-    <div class="card c-intro reveal">
-      <div class="card-tag">// PROFILE</div>
-      <div class="big-text">
-        새로운 기술을 배우고<br>
-        <em>적용하는 것을 즐기는</em><br>
-        개발자입니다
+  <!-- ── HERO ── -->
+  <div id="home">
+    <div class="hero">
+      <!-- 이름 카드 -->
+      <div class="hcard hc-name">
+        <div class="tag">구직 중 · 풀스택 개발</div>
+        <h1>Developer <span><em>BJK</em></span></h1>
       </div>
-      <p>ETL, RPA, Web 개발 등 다양한 대기업 SI 프로젝트에서 쌓아온 실전 경험을 바탕으로, 백엔드부터 프론트엔드까지 전반적인 개발 사이클을 이해합니다.</p>
-    </div>
-
-    <!-- STACK RATIO -->
-    <div class="card c-stack reveal">
-      <div class="card-label">기술 스택 비율</div>
-      <div class="stack-ratio">
-        <span class="ratio-label">Frontend</span>
-        <div class="ratio-bar"><div class="ratio-fill" data-w="0.3"></div></div>
-        <span class="ratio-label">30%</span>
-      </div>
-      <div class="stack-ratio">
-        <span class="ratio-label">Backend</span>
-        <div class="ratio-bar"><div class="ratio-fill" data-w="0.7"></div></div>
-        <span class="ratio-label">70%</span>
-      </div>
-      <div class="stack-chips">
-        <span class="chip">Java</span><span class="chip">Spring</span>
-        <span class="chip">Python</span><span class="chip">Oracle</span>
-        <span class="chip">Spark</span><span class="chip">JSP</span>
-      </div>
-    </div>
-
-    <!-- AVAILABLE -->
-    <div class="card c-available reveal">
-      <span class="avail-text">✦ 채용 가능</span>
-      <div class="avail-dot">🚀</div>
-    </div>
-
-    <!-- CAREER -->
-    <div class="card c-career reveal" id="career">
-      <div class="card-label" style="margin-bottom:1.2rem;">경력 사항</div>
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-year">2026 — 현재</div>
-          <div><div class="tl-org">구직 중</div><div class="tl-role">풀스택 개발자 지망</div></div>
+      <!-- 소개 카드 -->
+      <div class="hcard hc-desc">
+        <div class="role">Frontend 30% &nbsp;·&nbsp; Backend 70%</div>
+        <div class="desc">
+          ETL · RPA · Web 개발 등 대기업 SI 실무 경험을 바탕으로,<br>
+          백엔드부터 프론트엔드까지 사용자 중심 대한민국 미래를 만드는 개발자입니다.
         </div>
-        <div class="tl-item">
-          <div class="tl-year">2022 — 2025</div>
-          <div><div class="tl-org">SKT DBM</div><div class="tl-role">ETL 프로젝트 · 데이터 파이프라인 설계·운영</div></div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-year">2023</div>
-          <div><div class="tl-org">사회적기업진흥원</div><div class="tl-role">웹페이지 개선 프로젝트</div></div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-year">2020 — 2021</div>
-          <div><div class="tl-org">SK Hynix</div><div class="tl-role">RPA 개발 프로젝트 · 업무 자동화 구축</div></div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-year">2019</div>
-          <div><div class="tl-org">KT</div><div class="tl-role">통합 ONM 프로젝트</div></div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-year">2017 — 2018</div>
-          <div><div class="tl-org">심평원</div><div class="tl-role">DUR 고도화 프로젝트</div></div>
+        <div class="cta-row">
+          <a class="btn-dark" href="#contact">연락하기 →</a>
+          <a class="btn-ghost" href="#projects">포트폴리오 보기</a>
         </div>
       </div>
     </div>
 
-    <!-- SKILLS -->
-    <div class="card c-skills reveal" id="skills">
-      <div class="card-label" style="margin-bottom:1.2rem;">보유 기술</div>
-      <div class="skill-group">
-        <div class="skill-group-name">Frontend</div>
-        <div class="skill-chips">
-          <span class="schip fe">HTML</span><span class="schip fe">CSS</span>
-          <span class="schip fe">JavaScript</span><span class="schip fe">Angular4</span>
-          <span class="schip fe">jQuery</span><span class="schip fe">Ajax</span>
+    <!-- STAT CARDS 
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">9<span>+</span></div>
+        <div class="stat-label">년 개발 경험</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span style="font-size:2rem">SK·KT</span></div>
+        <div class="stat-label">대기업 SI 프로젝트 참여</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6<span>+</span></div>
+        <div class="stat-label">주요 프로젝트 완료</div>
+      </div>
+    </div>
+  </div>-->
+
+  <!-- ── ABOUT ── -->
+  <div class="section" id="about">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">소개</h2>
+      <div class="sec-hr"></div>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-bio-card">
+        <p>안녕하세요, <strong>봉재근</strong>입니다. 사용자 경험을 최우선으로 생각하며, 효율적이고 직관적인 솔루션을 만드는 것을 목표로 합니다.</p>
+        <p>ETL, RPA, 웹 개발 등 다양한 대기업 SI 프로젝트에서 쌓아온 실전 경험을 바탕으로, 백엔드 로직 설계부터 프론트엔드 구현까지 전반적인 개발 사이클을 이해합니다.</p>
+        <p>새로운 기술을 배우고 적용하는 것을 즐기며, 팀워크와 커뮤니케이션을 중요하게 생각합니다.</p>
+      </div>
+      <div class="about-info-card">
+        <div class="info-row"><div class="info-k">이름</div><div class="info-v">봉재근</div></div>
+        <div class="info-row"><div class="info-k">포지션</div><div class="info-v">풀스택 개발자</div></div>
+        <div class="info-row"><div class="info-k">스택 비율</div><div class="info-v">Front 30% · Back 70%</div></div>
+        <div class="info-row"><div class="info-k">경력 시작</div><div class="info-v">2002년</div></div>
+        <div class="info-row"><div class="info-k">이메일</div><div class="info-v">bongjk220@gmail.com</div></div>
+        <div class="info-row"><div class="info-k">관심사</div><div class="info-v">영화 · 음악 · 여행</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CAREER ── -->
+  <div class="section" id="career">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">경력</h2>
+      <div class="sec-hr"></div>
+    </div>
+    <div class="career-grid">
+      <div class="career-card current">
+        <div class="cc-top"><span class="cc-year">2026 — 현재</span><span class="cc-dot"></span></div>
+        <div class="cc-org">구직 중</div>
+        <div class="cc-role">풀스택 개발자 지망<br>포트폴리오 빌드 중</div>
+      </div>
+      <div class="career-card">
+        <div class="cc-top"><span class="cc-year">2022 — 2025</span><span class="cc-dot"></span></div>
+        <div class="cc-org">SKT DBM</div>
+        <div class="cc-role">ETL 프로젝트<br>데이터 파이프라인 설계·운영</div>
+      </div>
+      <div class="career-card">
+        <div class="cc-top"><span class="cc-year">2023</span><span class="cc-dot"></span></div>
+        <div class="cc-org">사회적기업진흥원</div>
+        <div class="cc-role">웹페이지 개선 프로젝트</div>
+      </div>
+      <div class="career-card">
+        <div class="cc-top"><span class="cc-year">2020 — 2021</span><span class="cc-dot"></span></div>
+        <div class="cc-org">SK Hynix</div>
+        <div class="cc-role">RPA 개발 프로젝트<br>업무 자동화 구축</div>
+      </div>
+      <div class="career-card">
+        <div class="cc-top"><span class="cc-year">2019</span><span class="cc-dot"></span></div>
+        <div class="cc-org">KT</div>
+        <div class="cc-role">통합 ONM 프로젝트</div>
+      </div>
+      <div class="career-card">
+        <div class="cc-top"><span class="cc-year">2002 — 2018</span><span class="cc-dot"></span></div>
+        <div class="cc-org">기타 등등</div>
+        <div class="cc-role">많은 프로젝트</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SKILLS ── -->
+  <div class="section" id="skills">
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">기술</h2>
+      <div class="sec-hr"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="sk-cat">Frontend <span class="sk-dot" style="background:#c8502a"></span></div>
+        <div class="sk-tags">
+          <span class="skt fe">HTML</span><span class="skt fe">CSS</span><span class="skt fe">JavaScript</span>
+          <span class="skt fe">Angular4</span><span class="skt fe">JSP</span><span class="skt fe">jQuery</span><span class="skt fe">Ajax</span>
         </div>
       </div>
-      <div class="skill-group">
-        <div class="skill-group-name">Backend</div>
-        <div class="skill-chips">
-          <span class="schip be">Java</span><span class="schip be">Spring Boot</span>
-          <span class="schip be">Spring FW</span><span class="schip be">전자정부FW</span>
-          <span class="schip be">JPA</span><span class="schip be">C/ProC</span>
+      <div class="skill-card">
+        <div class="sk-cat">Backend <span class="sk-dot" style="background:#1e8a55"></span></div>
+        <div class="sk-tags">
+          <span class="skt be">Java</span><span class="skt be">Spring Boot</span><span class="skt be">Spring FW</span>
+          <span class="skt be">전자정부FW</span><span class="skt be">JPA</span><span class="skt be">Hibernate</span><span class="skt be">C / ProC</span>
         </div>
       </div>
-      <div class="skill-group">
-        <div class="skill-group-name">Database</div>
-        <div class="skill-chips">
-          <span class="schip db">Oracle</span><span class="schip db">MariaDB</span>
-          <span class="schip db">PostgreSQL</span><span class="schip db">MySQL</span>
-          <span class="schip db">Sybase</span><span class="schip db">Redshift</span>
+      <div class="skill-card">
+        <div class="sk-cat">Database <span class="sk-dot" style="background:#c8a020"></span></div>
+        <div class="sk-tags">
+          <span class="skt db">Oracle</span><span class="skt db">MariaDB</span><span class="skt db">PostgreSQL</span>
+          <span class="skt db">MySQL</span><span class="skt db">Sybase</span><span class="skt db">Tibero</span><span class="skt db">Redshift</span>
         </div>
       </div>
-      <div class="skill-group">
-        <div class="skill-group-name">Data</div>
-        <div class="skill-chips">
-          <span class="schip da">Python</span><span class="schip da">Spark</span>
-          <span class="schip da">Hadoop</span><span class="schip da">Qlikview</span>
+      <div class="skill-card">
+        <div class="sk-cat">Data & Analytics <span class="sk-dot" style="background:#2653c8"></span></div>
+        <div class="sk-tags">
+          <span class="skt da">Python</span><span class="skt da">Apache Spark</span><span class="skt da">Hadoop</span>
+          <span class="skt da">Qlikview</span><span class="skt da">Qlik Sense</span>
         </div>
       </div>
-      <div class="skill-group">
-        <div class="skill-group-name">Infra</div>
-        <div class="skill-chips">
-          <span class="schip os">Linux</span><span class="schip os">UNIX</span>
-          <span class="schip os">Git</span>
+      <div class="skill-card">
+        <div class="sk-cat">Infra & OS <span class="sk-dot" style="background:#8a1a8a"></span></div>
+        <div class="sk-tags">
+          <span class="skt os">Linux (Red Hat)</span><span class="skt os">CentOS</span>
+          <span class="skt os">Ubuntu</span><span class="skt os">UNIX</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="sk-cat">DevOps <span class="sk-dot" style="background:#2653c8"></span></div>
+        <div class="sk-tags">
+          <span class="skt da">Git</span><span class="skt da">GitHub</span>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- GITHUB -->
-    <div class="card c-github reveal">
-      <div class="card-label" style="color:rgba(255,255,255,0.45);">GitHub</div>
-      <div class="github-big">bongjk220</div>
-      <a class="github-link" href="https://github.com/bongjk220" target="_blank">
-        github.com/bongjk220 ↗
+  <!-- ── PROJECTS ── -->
+  <div class="section" id="projects">
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">포트폴리오</h2>
+      <div class="sec-hr"></div>
+    </div>
+    <div class="projects-grid">
+
+      <a class="proj-card pt-1" href="https://megatestkr.onrender.com/" target="_blank">
+        <div class="proj-thumb pt-1">
+          <span class="proj-thumb-emoji">🤖</span>
+          <div class="proj-badge-wrap">
+            <span class="proj-badge">RPA</span>
+            <span class="proj-badge">Automation</span>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">MegaBox API 크롤링 영화</div>
+          <p class="proj-desc">MegaBox 사이트 API를 이용하여 매일 자동화(Python+TiDB+Java)하여 영화 정보를 수집.</p>
+          <div class="proj-footer">
+            <div class="proj-tags2">
+              <span class="ptag">Python</span><span class="ptag">TiDB</span><span class="ptag">Java</span>
+            </div>
+            <div class="proj-arrow">↗</div>
+          </div>
+        </div>
       </a>
-    </div>
 
-    <!-- PROJECTS HEADER -->
-    <div class="card c-projects reveal" id="projects">
-      <h2>주요 프로젝트</h2>
-      <span class="proj-count">04 projects</span>
-    </div>
+      <a class="proj-card pt-2" href="https://mega-ofzn.onrender.com" target="_blank">
+        <div class="proj-thumb pt-2">
+          <span class="proj-thumb-emoji">🌐</span>
+          <div class="proj-badge-wrap">
+            <span class="proj-badge">Web</span>
+            <span class="proj-badge">UI/UX</span>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">이커머스 - DaDream 쇼핑몰</div>
+          <p class="proj-desc">두드림의 semi Project DaDream 쇼핑몰. 웹사이트 UI/UX 개선 및 반응형 레이아웃 적용.</p>
+          <div class="proj-footer">
+            <div class="proj-tags2">
+              <span class="ptag">Spring boot</span><span class="ptag">Java</span><span class="ptag">HTML5</span><span class="ptag">CSS3</span><span class="ptag">Thymeleaf</span><span class="ptag">TiDB</span>
+            </div>
+            <div class="proj-arrow">↗</div>
+          </div>
+        </div>
+      </a>
 
-    <!-- PROJECT 1 -->
-    <div class="card c-proj1 p1 reveal">
-      <div class="proj-thumb">
-        🗃️
-        <span class="proj-badge">ETL · Data</span>
-      </div>
-      <div class="proj-title">SKT DBM ETL 파이프라인</div>
-      <p class="proj-desc">SK텔레콤 대용량 데이터 ETL 파이프라인 설계·운영. Redshift + Spark 기반 자동화.</p>
-      <div class="proj-tags">
-        <span class="ptag">Python</span><span class="ptag">Spark</span><span class="ptag">Redshift</span>
-      </div>
-    </div>
+      <a class="proj-card pt-3" href="https://github.com/bongjk220" target="_blank">
+        <div class="proj-thumb pt-3">
+          <span class="proj-thumb-emoji">🗃️</span>
+          <div class="proj-badge-wrap">
+            <span class="proj-badge">Web</span>
+            <span class="proj-badge">UI/UX</span>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">위탁판매 사이트(준비중)</div>
+          <p class="proj-desc">기존 위탁판매 주문을 자동으로 하여 쇼핑몰에 온라인으로 주문하고 관리하는 웹사이트.</p>
+          <div class="proj-footer">
+            <div class="proj-tags2">
+              <span class="ptag">Spring boot</span><span class="ptag">Java</span><span class="ptag">HTML5</span><span class="ptag">CSS3</span><span class="ptag">Thymeleaf</span><span class="ptag">TiDB</span>
+            </div>
+            <div class="proj-arrow">↗</div>
+          </div>
+        </div>
+      </a>
 
-    <!-- PROJECT 2 -->
-    <div class="card c-proj2 p2 reveal">
-      <div class="proj-thumb">
-        🤖
-        <span class="proj-badge">RPA</span>
-      </div>
-      <div class="proj-title">SK Hynix RPA 자동화</div>
-      <p class="proj-desc">반복 업무 자동화 RPA 개발. 생산성 향상 및 오류율 감소에 기여.</p>
-      <div class="proj-tags">
-        <span class="ptag">Java</span><span class="ptag">RPA</span>
-      </div>
-    </div>
+      <a class="proj-card pt-4" href="https://github.com/bongjk220" target="_blank">
+        <div class="proj-thumb pt-4">
+          <span class="proj-thumb-emoji">🤖</span>
+          <div class="proj-badge-wrap">
+            <span class="proj-badge">RPA</span>
+            <span class="proj-badge">Automation</span>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title">생성형 AI를 이용한 최신트랜드 음악 자동화(준비중)</div>
+          <p class="proj-desc">AI를 이용하여 최신유행 음악을 생성하고, 유툽에 자동으로 등록해주는 RPA 프로젝트</p>
+          <div class="proj-footer">
+            <div class="proj-tags2">
+              <span class="ptag">Python</span><span class="ptag">TiDB</span>
+            </div>
+            <div class="proj-arrow">↗</div>
+          </div>
+        </div>
+      </a>
 
-    <!-- PROJECT 3 -->
-    <div class="card c-proj3 p3 reveal">
-      <div class="proj-thumb">
-        💊
-        <span class="proj-badge">Healthcare</span>
-      </div>
-      <div class="proj-title">심평원 DUR 고도화</div>
-      <p class="proj-desc">건강보험심사평가원 의약품안심서비스 고도화. 전자정부프레임워크 기반 시스템.</p>
-      <div class="proj-tags">
-        <span class="ptag">Java</span><span class="ptag">전자정부FW</span><span class="ptag">Oracle</span>
-      </div>
     </div>
+  </div>
 
-    <!-- CONTACT -->
-    <div class="card c-contact reveal" id="contact">
-      <div>
-        <div class="card-label" style="color:rgba(255,255,255,0.35); margin-bottom:0.8rem;">연락처</div>
-        <div class="contact-headline">
-          함께 더 나은<br>
-          <span>솔루션을 만들어</span><br>
-          갑니다
+  <!-- ── CONTACT ── -->
+  <div class="section" id="contact">
+    <div class="sec-head reveal">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">연락</h2>
+      <div class="sec-hr"></div>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-main-card">
+        <div>
+          <div class="contact-headline">새로운 기회를<br><em>기다립니다</em></div>
+          <p class="contact-sub">풀스택 개발 포지션 또는 협업 제안이 있으시면 언제든 연락 주세요. 함께 더 나은 미래를 만들어 갑니다.</p>
+        </div>
+        <div class="contact-cta-row">
+          <a class="btn-accent" href="mailto:bongjk220@gmail.com">이메일 보내기 →</a>
         </div>
       </div>
-      <div class="contact-links">
-        <a class="clink" href="mailto:bongjk220@gmail.com">📧 bongjk220@gmail.com</a>
-        <a class="clink" href="tel:01094105910">📱 010-9410-5910</a>
-        <a class="clink" href="https://github.com/bongjk220" target="_blank">💼 github.com/bongjk220</a>
+      <div class="contact-links-card">
+        <a class="clink" href="mailto:bongjk220@gmail.com">
+          <div class="clink-icon">📧</div>
+          <div class="clink-text">
+            <div class="clink-label">이메일</div>
+            <div class="clink-val">bongjk220@gmail.com</div>
+          </div>
+        </a>
+        <a class="clink" href="tel:01094105910">
+          <div class="clink-icon">📱</div>
+          <div class="clink-text">
+            <div class="clink-label">전화번호</div>
+            <div class="clink-val">010-9410-5910</div>
+          </div>
+        </a>
+        <a class="clink" href="https://github.com/bongjk220" target="_blank">
+          <div class="clink-icon">💼</div>
+          <div class="clink-text">
+            <div class="clink-label">GitHub</div>
+            <div class="clink-val">github.com/bongjk220</div>
+          </div>
+        </a>
+        <a class="clink" href="https://bongjk220.github.io/fs/" target="_blank">
+          <div class="clink-icon">🌐</div>
+          <div class="clink-text">
+            <div class="clink-label">포트폴리오</div>
+            <div class="clink-val">bongjk220.github.io/fs</div>
+          </div>
+        </a>
       </div>
     </div>
+  </div>
 
-  </div><!-- /bento -->
+</div><!-- /page -->
 
-  <footer>© 2026 봉재근 · All rights reserved</footer>
-</div>
+<footer>© 2026 봉재근 &nbsp;·&nbsp; FULLSTACK DEVELOPER</footer>
 
 <script>
-  // Scroll reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 60);
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal, .tl-item').forEach(el => obs.observe(el));
+// Mouse glow
+const glow = document.getElementById('glow');
+document.addEventListener('mousemove', e => {
+  glow.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
+});
 
-  // Stack ratio bars animation
-  const barObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.querySelectorAll('.ratio-fill').forEach(fill => {
-          const w = fill.dataset.w;
-          fill.style.transform = `scaleX(${w})`;
-          fill.classList.add('animate');
-        });
-        barObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  document.querySelectorAll('.c-stack').forEach(el => barObs.observe(el));
+// Intersection observer
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 70);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal, .career-card, .skill-card, .proj-card').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>

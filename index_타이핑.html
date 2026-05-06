@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>봉재근 | Dev Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #0e1117;
+      --bg2:      #161b22;
+      --bg3:      #1c2230;
+      --line:     rgba(255,255,255,0.06);
+      --green:    #3ddc84;
+      --cyan:     #79c0ff;
+      --orange:   #ffa657;
+      --red:      #ff7b72;
+      --purple:   #bc8cff;
+      --yellow:   #e3b341;
+      --text:     #c9d1d9;
+      --muted:    #586069;
+      --mono:     'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+      cursor: none;
+      overflow-x: hidden;
+    }
+    #cursor {
+      position: fixed; z-index: 9999; pointer-events: none;
+      width: 10px; height: 20px;
+      background: var(--green); opacity: 0.85;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:.85} 50%{opacity:0} }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1000; pointer-events: none;
+      background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
+    }
+
+    /* SIDEBAR */
+    #sidebar {
+      position: fixed; left: 0; top: 0; bottom: 0; z-index: 200;
+      width: 220px; background: var(--bg2);
+      border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; padding: 2rem 0;
+    }
+    .sidebar-logo { padding: 0 1.5rem 2rem; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }
+    .sidebar-logo .prompt { color: var(--green); font-size: 0.72rem; margin-bottom: 0.3rem; }
+    .sidebar-logo .name   { color: var(--cyan); font-size: 1rem; font-weight: 700; }
+    .sidebar-logo .role   { color: var(--muted); font-size: 0.7rem; margin-top: 0.2rem; }
+    .sidebar-section { padding: 0 1rem; margin-bottom: 0.5rem; }
+    .sidebar-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; padding: 0 0.5rem; margin-bottom: 0.3rem; }
+    .nav-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.4rem 0.5rem; border-radius: 4px;
+      text-decoration: none; color: var(--muted);
+      font-size: 0.78rem; transition: all 0.15s; cursor: none;
+    }
+    .nav-item:hover, .nav-item.active { background: rgba(125,211,252,0.08); color: var(--text); }
+    .nav-item .icon { font-size: 0.85rem; width: 16px; text-align: center; }
+    .nav-item .ext { margin-left: auto; font-size: 0.65rem; color: var(--muted); }
+    .sidebar-footer { margin-top: auto; padding: 1rem 1.5rem; border-top: 1px solid var(--line); font-size: 0.65rem; color: var(--muted); }
+    .status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-right: 0.4rem; animation: blink 2s ease infinite; }
+
+    /* MAIN */
+    main { margin-left: 220px; min-height: 100vh; }
+
+    /* TAB BAR */
+    .tab-bar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; background: var(--bg2); border-bottom: 1px solid var(--line); overflow-x: auto; }
+    .tab { display: flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.2rem; font-size: 0.75rem; color: var(--muted); border-right: 1px solid var(--line); white-space: nowrap; text-decoration: none; cursor: none; transition: all 0.15s; }
+    .tab.active { color: var(--text); background: var(--bg); border-bottom: 2px solid var(--orange); }
+    .tab .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    /* SECTIONS */
+    section { padding: 4rem 3rem; border-bottom: 1px solid var(--line); position: relative; }
+    section::before {
+      content: attr(data-line);
+      position: absolute; left: 0; top: 4rem; width: 2.5rem;
+      text-align: right; padding-right: 0.5rem;
+      color: var(--muted); font-size: 0.7rem; line-height: 1.7;
+      white-space: pre; pointer-events: none;
+      border-right: 1px solid var(--line);
+    }
+    section > * { padding-left: 1rem; }
+
+    /* HERO */
+    #home { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+    .terminal-window { background: var(--bg2); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; max-width: 700px; box-shadow: 0 24px 64px rgba(0,0,0,0.6); }
+    .terminal-titlebar { display: flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1rem; background: var(--bg3); border-bottom: 1px solid var(--line); }
+    .tb-btn { width: 12px; height: 12px; border-radius: 50%; }
+    .tb-close { background: #ff5f56; } .tb-min { background: #ffbd2e; } .tb-max { background: #27c93f; }
+    .tb-title { margin-left: 0.8rem; font-size: 0.72rem; color: var(--muted); }
+    .terminal-body { padding: 1.5rem 1.5rem 2rem; }
+    .t-line { margin-bottom: 0.4rem; }
+    .t-prompt { color: var(--green); } .t-cmd { color: var(--text); } .t-comment { color: var(--muted); font-style: italic; }
+    .t-key { color: var(--cyan); } .t-val { color: var(--orange); } .t-str { color: var(--yellow); } .t-num { color: var(--purple); }
+    #typewriter { display: inline; }
+    .cursor-blink { display: inline-block; width: 8px; height: 16px; background: var(--green); vertical-align: middle; animation: blink 1s step-end infinite; }
+
+    /* SECTION HEADERS */
+    .sec-comment { color: var(--muted); font-size: 0.8rem; margin-bottom: 0.8rem; }
+    .sec-comment span { color: var(--green); }
+    .sec-fn { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; color: var(--text); }
+    .sec-fn .kw { color: var(--purple); } .sec-fn .fn { color: var(--cyan); } .sec-fn .paren { color: var(--yellow); }
+
+    /* CAREER */
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item { display: grid; grid-template-columns: 200px 1fr; position: relative; opacity: 0; transform: translateX(-12px); transition: all 0.5s ease; }
+    .exp-item.visible { opacity: 1; transform: none; }
+    .exp-left { padding: 1rem 2rem 1rem 0; border-right: 1px solid var(--line); position: relative; }
+    .exp-left::after { content: ''; position: absolute; right: -5px; top: 1.4rem; width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px rgba(61,220,132,0.5); }
+    .exp-period { color: var(--orange); font-size: 0.72rem; }
+    .exp-right { padding: 1rem 0 1rem 2rem; }
+    .exp-org { color: var(--cyan); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .exp-role { color: var(--muted); font-size: 0.78rem; }
+
+    /* SKILLS */
+    .skill-obj { background: var(--bg2); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; margin-bottom: 1rem; max-width: 700px; opacity: 0; transform: translateY(10px); transition: all 0.4s; }
+    .skill-obj.visible { opacity: 1; transform: none; }
+    .skill-obj-header { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--bg3); border-bottom: 1px solid var(--line); font-size: 0.72rem; color: var(--muted); }
+    .skill-obj-header .arrow { color: var(--cyan); }
+    .skill-obj-body { padding: 0.8rem 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .stag { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.6rem; border-radius: 3px; font-size: 0.72rem; transition: all 0.2s; cursor: none; }
+    .stag:hover { transform: translateY(-2px); }
+    .stag.fe { background: rgba(121,192,255,0.1); color: var(--cyan);   border: 1px solid rgba(121,192,255,0.2); }
+    .stag.be { background: rgba(61,220,132,0.1);  color: var(--green);  border: 1px solid rgba(61,220,132,0.2); }
+    .stag.db { background: rgba(255,166,87,0.1);  color: var(--orange); border: 1px solid rgba(255,166,87,0.2); }
+    .stag.da { background: rgba(188,140,255,0.1); color: var(--purple); border: 1px solid rgba(188,140,255,0.2); }
+    .stag.os { background: rgba(255,123,114,0.1); color: var(--red);    border: 1px solid rgba(255,123,114,0.2); }
+    .stag.dv { background: rgba(227,179,65,0.1);  color: var(--yellow); border: 1px solid rgba(227,179,65,0.2); }
+
+    /* PROJECTS */
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .proj-card { background: var(--bg2); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; transition: all 0.25s; text-decoration: none; color: inherit; display: block; cursor: none; opacity: 0; transform: translateY(14px); }
+    .proj-card.visible { opacity: 1; transform: none; }
+    .proj-card:hover { border-color: rgba(61,220,132,0.35); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .proj-header { padding: 0.7rem 1rem; background: var(--bg3); border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; color: var(--muted); }
+    .proj-body { padding: 1.2rem; }
+    .proj-title { color: var(--cyan); font-weight: 700; margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .proj-desc { color: var(--muted); font-size: 0.75rem; line-height: 1.65; margin-bottom: 0.8rem; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .ptag { font-size: 0.65rem; padding: 0.1rem 0.4rem; border-radius: 2px; background: rgba(255,255,255,0.04); border: 1px solid var(--line); color: var(--muted); }
+
+    /* CONTACT */
+    .contact-block { background: var(--bg2); border: 1px solid var(--line); border-radius: 6px; padding: 1.5rem; max-width: 560px; font-size: 0.82rem; }
+    .c-row { margin-bottom: 0.5rem; }
+    .c-key { color: var(--cyan); } .c-sep { color: var(--muted); margin: 0 0.5rem; }
+    .c-val { color: var(--yellow); text-decoration: none; } .c-val:hover { color: var(--green); }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+
+    @media(max-width:768px){
+      #sidebar { display: none; }
+      main { margin-left: 0; }
+      section::before { display: none; }
+      section > * { padding-left: 0; }
+      section { padding: 3rem 1.5rem; }
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-left { border-right: none; padding-bottom: 0; }
+      .exp-left::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div id="cursor"></div>
+
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="prompt">~/portfolio $</div>
+    <div class="name">봉재근</div>
+    <div class="role">Fullstack Developer</div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Explorer</div>
+    <a class="nav-item active" href="#home"><span class="icon">📄</span> home.ts <span class="ext">.ts</span></a>
+    <a class="nav-item" href="#about"><span class="icon">👤</span> about.ts <span class="ext">.ts</span></a>
+    <a class="nav-item" href="#career"><span class="icon">📁</span> career.ts <span class="ext">.ts</span></a>
+    <a class="nav-item" href="#skills"><span class="icon">⚙️</span> skills.ts <span class="ext">.ts</span></a>
+    <a class="nav-item" href="#projects"><span class="icon">🚀</span> projects.ts <span class="ext">.ts</span></a>
+    <a class="nav-item" href="#contact"><span class="icon">✉️</span> contact.ts <span class="ext">.ts</span></a>
+  </div>
+  <div class="sidebar-footer">
+    <div><span class="status-dot"></span>구직 중</div>
+    <div style="margin-top:0.3rem;">Git: main ✓</div>
+  </div>
+</nav>
+
+<main>
+  <div class="tab-bar">
+    <a class="tab active" href="#home"><span class="dot" style="background:var(--cyan)"></span> home.ts</a>
+    <a class="tab" href="#career"><span class="dot" style="background:var(--green)"></span> career.ts</a>
+    <a class="tab" href="#skills"><span class="dot" style="background:var(--orange)"></span> skills.ts</a>
+    <a class="tab" href="#projects"><span class="dot" style="background:var(--purple)"></span> projects.ts</a>
+    <a class="tab" href="#contact"><span class="dot" style="background:var(--yellow)"></span> contact.ts</a>
+  </div>
+
+  <section id="home" data-line="001&#10;002&#10;003&#10;004&#10;005&#10;006&#10;007&#10;008&#10;009&#10;010&#10;011&#10;012&#10;013&#10;014&#10;015&#10;016&#10;017&#10;018&#10;019&#10;020&#10;021&#10;022&#10;023&#10;024&#10;025">
+    <div class="terminal-window">
+      <div class="terminal-titlebar">
+        <div class="tb-btn tb-close"></div>
+        <div class="tb-btn tb-min"></div>
+        <div class="tb-btn tb-max"></div>
+        <div class="tb-title">bongjk220 — bash — 80×24</div>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">bongjk220@portfolio</span><span class="t-comment">:~$</span> <span class="t-cmd">cat profile.json</span></div>
+        <div class="t-line">&nbsp;</div>
+        <div class="t-line"><span style="color:rgba(255,255,255,0.15)">{</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-key">"name"</span><span class="t-comment">:</span> <span class="t-str">"봉재근"</span><span class="t-comment">,</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-key">"role"</span><span class="t-comment">:</span> <span class="t-str">"Fullstack Developer"</span><span class="t-comment">,</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-key">"stack"</span><span class="t-comment">:</span> <span class="t-comment">{ </span><span class="t-key">"front"</span><span class="t-comment">:</span> <span class="t-num">30</span><span class="t-comment">, </span><span class="t-key">"back"</span><span class="t-comment">:</span> <span class="t-num">70</span> <span class="t-comment">},</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-key">"experience"</span><span class="t-comment">:</span> <span class="t-str">"2017 — present"</span><span class="t-comment">,</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-key">"email"</span><span class="t-comment">:</span> <span class="t-str">"bongjk220@gmail.com"</span></div>
+        <div class="t-line"><span style="color:rgba(255,255,255,0.15)">}</span></div>
+        <div class="t-line">&nbsp;</div>
+        <div class="t-line"><span class="t-prompt">bongjk220@portfolio</span><span class="t-comment">:~$</span> <span id="typewriter"></span><span class="cursor-blink"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" data-line="026&#10;027&#10;028&#10;029&#10;030&#10;031&#10;032&#10;033&#10;034&#10;035&#10;036&#10;037&#10;038&#10;039&#10;040">
+    <div class="sec-comment"><span>/**</span> about.ts — 자기소개 <span>*/</span></div>
+    <div class="sec-fn"><span class="kw">const</span> <span class="fn">introduce</span><span class="paren">()</span> <span class="kw">=&gt;</span></div>
+    <div class="contact-block" style="max-width:680px;">
+      <div class="t-line"><span class="t-comment">// 안녕하세요, 창의적인 웹 개발을 사랑하는 봉재근입니다.</span></div>
+      <br>
+      <div class="t-line"><span class="t-key">return</span> <span class="t-comment">{</span></div>
+      <div class="t-line">&nbsp;&nbsp;<span class="t-key">"mission"</span>: <span class="t-str">"사용자 경험을 최우선으로 생각하는 개발"</span>,</div>
+      <div class="t-line">&nbsp;&nbsp;<span class="t-key">"strength"</span>: <span class="t-str">"ETL · RPA · Web 실무 기반 풀스택"</span>,</div>
+      <div class="t-line">&nbsp;&nbsp;<span class="t-key">"style"</span>: <span class="t-str">"팀워크와 커뮤니케이션 중시"</span>,</div>
+      <div class="t-line">&nbsp;&nbsp;<span class="t-key">"hobbies"</span>: [<span class="t-str">"영화"</span>, <span class="t-str">"음악"</span>, <span class="t-str">"여행"</span>, <span class="t-str">"자기계발서"</span>]</div>
+      <div class="t-line"><span class="t-comment">}</span></div>
+    </div>
+  </section>
+
+  <section id="career" data-line="041&#10;042&#10;043&#10;044&#10;045&#10;046&#10;047&#10;048&#10;049&#10;050&#10;051&#10;052&#10;053&#10;054&#10;055&#10;056&#10;057&#10;058&#10;059&#10;060&#10;061&#10;062&#10;063&#10;064&#10;065">
+    <div class="sec-comment"><span>/**</span> career.ts — 경력 사항 <span>*/</span></div>
+    <div class="sec-fn"><span class="kw">const</span> <span class="fn">experience</span><span class="paren">[]</span> <span class="kw">=</span></div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-left"><div class="exp-period">2026 — present</div></div>
+        <div class="exp-right"><div class="exp-org">구직 중</div><div class="exp-role">풀스택 개발자 지망 · 포트폴리오 빌드 중</div></div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-left"><div class="exp-period">2022 — 2025</div></div>
+        <div class="exp-right"><div class="exp-org">SKT DBM</div><div class="exp-role">ETL 프로젝트 · 대용량 데이터 파이프라인 설계 및 운영</div></div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-left"><div class="exp-period">2023</div></div>
+        <div class="exp-right"><div class="exp-org">사회적기업진흥원</div><div class="exp-role">웹페이지 개선 프로젝트</div></div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-left"><div class="exp-period">2020 — 2021</div></div>
+        <div class="exp-right"><div class="exp-org">SK Hynix</div><div class="exp-role">RPA 개발 프로젝트 · 업무 자동화 구축</div></div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-left"><div class="exp-period">2019</div></div>
+        <div class="exp-right"><div class="exp-org">KT</div><div class="exp-role">통합 ONM 프로젝트</div></div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-left"><div class="exp-period">2017 — 2018</div></div>
+        <div class="exp-right"><div class="exp-org">심평원</div><div class="exp-role">DUR 고도화 프로젝트</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" data-line="066&#10;067&#10;068&#10;069&#10;070&#10;071&#10;072&#10;073&#10;074&#10;075&#10;076&#10;077&#10;078&#10;079&#10;080&#10;081&#10;082&#10;083&#10;084&#10;085">
+    <div class="sec-comment"><span>/**</span> skills.ts — 보유 기술 <span>*/</span></div>
+    <div class="sec-fn"><span class="kw">const</span> <span class="fn">skills</span> <span class="kw">=</span> <span class="paren">{</span></div>
+    <div class="skill-obj">
+      <div class="skill-obj-header"><span class="arrow">▶</span> frontend <span style="color:var(--cyan);">: string[]</span></div>
+      <div class="skill-obj-body">
+        <span class="stag fe">HTML</span><span class="stag fe">CSS</span><span class="stag fe">JavaScript</span><span class="stag fe">Angular4</span><span class="stag fe">JSP</span><span class="stag fe">jQuery</span><span class="stag fe">Ajax</span>
+      </div>
+    </div>
+    <div class="skill-obj">
+      <div class="skill-obj-header"><span class="arrow">▶</span> backend <span style="color:var(--green);">: string[]</span></div>
+      <div class="skill-obj-body">
+        <span class="stag be">Java</span><span class="stag be">Spring Boot</span><span class="stag be">Spring Framework</span><span class="stag be">전자정부프레임워크</span><span class="stag be">JPA</span><span class="stag be">Hibernate</span><span class="stag be">C</span><span class="stag be">ProC</span>
+      </div>
+    </div>
+    <div class="skill-obj">
+      <div class="skill-obj-header"><span class="arrow">▶</span> database <span style="color:var(--orange);">: string[]</span></div>
+      <div class="skill-obj-body">
+        <span class="stag db">Oracle</span><span class="stag db">MariaDB</span><span class="stag db">PostgreSQL</span><span class="stag db">MySQL</span><span class="stag db">Sybase</span><span class="stag db">Tibero</span><span class="stag db">Amazon Redshift</span>
+      </div>
+    </div>
+    <div class="skill-obj">
+      <div class="skill-obj-header"><span class="arrow">▶</span> data <span style="color:var(--purple);">: string[]</span></div>
+      <div class="skill-obj-body">
+        <span class="stag da">Python</span><span class="stag da">Apache Spark</span><span class="stag da">AWS Spark</span><span class="stag da">Hadoop</span><span class="stag da">Qlikview</span><span class="stag da">Qlik Sense</span>
+      </div>
+    </div>
+    <div class="skill-obj">
+      <div class="skill-obj-header"><span class="arrow">▶</span> infra <span style="color:var(--red);">: string[]</span></div>
+      <div class="skill-obj-body">
+        <span class="stag os">Linux (Red Hat)</span><span class="stag os">CentOS</span><span class="stag os">Ubuntu</span><span class="stag os">UNIX</span>
+      </div>
+    </div>
+    <div class="skill-obj">
+      <div class="skill-obj-header"><span class="arrow">▶</span> devops <span style="color:var(--yellow);">: string[]</span></div>
+      <div class="skill-obj-body">
+        <span class="stag dv">Git</span><span class="stag dv">GitHub</span>
+      </div>
+    </div>
+    <div style="margin-top:0.5rem; color:var(--muted); font-size:0.78rem;"><span class="paren">}</span> <span class="t-comment">// end skills</span></div>
+  </section>
+
+  <section id="projects" data-line="086&#10;087&#10;088&#10;089&#10;090&#10;091&#10;092&#10;093&#10;094&#10;095&#10;096&#10;097&#10;098&#10;099&#10;100&#10;101&#10;102&#10;103&#10;104&#10;105">
+    <div class="sec-comment"><span>/**</span> projects.ts — 주요 프로젝트 <span>*/</span></div>
+    <div class="sec-fn"><span class="kw">const</span> <span class="fn">projects</span><span class="paren">[]</span> <span class="kw">=</span></div>
+    <div class="proj-grid">
+      <a class="proj-card" href="https://github.com/bongjk220" target="_blank">
+        <div class="proj-header"><span>🗃️</span> etl-pipeline.py</div>
+        <div class="proj-body">
+          <div class="proj-title">SKT DBM ETL 파이프라인</div>
+          <p class="proj-desc">SK텔레콤 대용량 데이터 ETL 파이프라인 설계·운영. Redshift + Spark 기반 데이터 변환 자동화.</p>
+          <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">Apache Spark</span><span class="ptag">Amazon Redshift</span><span class="ptag">Linux</span></div>
+        </div>
+      </a>
+      <a class="proj-card" href="https://github.com/bongjk220" target="_blank">
+        <div class="proj-header"><span>🤖</span> rpa-automation.java</div>
+        <div class="proj-body">
+          <div class="proj-title">SK Hynix RPA 자동화</div>
+          <p class="proj-desc">SK하이닉스 반복 업무 자동화 RPA 개발. 생산성 향상 및 오류율 감소에 기여.</p>
+          <div class="proj-tags"><span class="ptag">Java</span><span class="ptag">RPA</span></div>
+        </div>
+      </a>
+      <a class="proj-card" href="https://github.com/bongjk220" target="_blank">
+        <div class="proj-header"><span>🌐</span> web-renewal.jsp</div>
+        <div class="proj-body">
+          <div class="proj-title">사회적기업진흥원 웹 개선</div>
+          <p class="proj-desc">웹사이트 UI/UX 개선 및 반응형 레이아웃 적용. 사용성 향상 프로젝트.</p>
+          <div class="proj-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JSP</span></div>
+        </div>
+      </a>
+      <a class="proj-card" href="https://github.com/bongjk220" target="_blank">
+        <div class="proj-header"><span>💊</span> dur-system.java</div>
+        <div class="proj-body">
+          <div class="proj-title">심평원 DUR 고도화</div>
+          <p class="proj-desc">건강보험심사평가원 의약품안심서비스 고도화. 전자정부프레임워크 기반 시스템 개발.</p>
+          <div class="proj-tags"><span class="ptag">Java</span><span class="ptag">전자정부FW</span><span class="ptag">Oracle</span></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section id="contact" data-line="106&#10;107&#10;108&#10;109&#10;110&#10;111&#10;112&#10;113&#10;114&#10;115&#10;116&#10;117&#10;118&#10;119&#10;120">
+    <div class="sec-comment"><span>/**</span> contact.ts — 연락처 <span>*/</span></div>
+    <div class="sec-fn"><span class="kw">export default</span> <span class="fn">contact</span><span class="paren">()</span></div>
+    <div class="contact-block">
+      <div class="c-row"><span class="t-comment">// 새로운 기회를 기다립니다. 언제든 연락 주세요!</span></div>
+      <br>
+      <div class="c-row"><span class="c-key">email</span><span class="c-sep">→</span><a class="c-val" href="mailto:bongjk220@gmail.com">"bongjk220@gmail.com"</a></div>
+      <div class="c-row"><span class="c-key">phone</span><span class="c-sep">→</span><a class="c-val" href="tel:01094105910">"010-9410-5910"</a></div>
+      <div class="c-row"><span class="c-key">github</span><span class="c-sep">→</span><a class="c-val" href="https://github.com/bongjk220" target="_blank">"github.com/bongjk220"</a></div>
+      <br>
+      <div class="c-row"><span class="t-key">return</span> <span class="t-str">"함께 더 나은 솔루션을 만들어 갑니다 🚀"</span></div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = (e.clientY - 10) + 'px';
+  });
+
+  // Typewriter
+  const phrases = ['npm run dev', 'git push origin main', 'python etl_pipeline.py', 'java -jar app.jar', 'SELECT * FROM career;'];
+  let pi = 0, ci = 0, deleting = false;
+  const tw = document.getElementById('typewriter');
+  function type() {
+    const cur = phrases[pi];
+    if (!deleting) {
+      tw.textContent = cur.slice(0, ++ci);
+      if (ci === cur.length) { deleting = true; setTimeout(type, 1800); return; }
+      setTimeout(type, 80);
+    } else {
+      tw.textContent = cur.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(type, 400); return; }
+      setTimeout(type, 40);
+    }
+  }
+  setTimeout(type, 1000);
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.exp-item, .skill-obj, .proj-card').forEach(el => obs.observe(el));
+
+  // Active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+  const tabItems = document.querySelectorAll('.tab');
+  const secObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navItems.forEach(n => n.classList.toggle('active', n.getAttribute('href') === '#' + id));
+        tabItems.forEach(t => t.classList.toggle('active', t.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => secObs.observe(s));
+</script>
+</body>
+</html>

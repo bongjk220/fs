@@ -23,5 +23,6 @@ pyautogui.click()
 
 pyautogui.sleep(1)
 
-pyautogui.moveTo(win.left + 611, win.top + 90, duration=0.5)
+pyautogui.moveTo(win.left + 840, win.top + 65, duration=0.5)
+pyautogui.sleep(1)
 pyautogui.click()

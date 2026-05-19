@@ -11,8 +11,8 @@ try:
     else:
         mx, my = pyautogui.position()
 
-        def center(b):return (b.left + b.width // 2, b.top + b.height // 2)
-        def dist(p):return (p[0] - mx) ** 2 + (p[1] - my) ** 2
+        def center(b):return (b.left + b.width // 2, b.top + b.height // 2) # 박스의 중심점 좌표를 구하는 함수
+        def dist(p):return (p[0] - mx) ** 2 + (p[1] - my) ** 2 # distance 가까운것을 찾는다. 제곱근을 구하지 않아도 비교는 가능
 
         centers = [center(b) for b in boxes]
         target = min(centers, key=dist)

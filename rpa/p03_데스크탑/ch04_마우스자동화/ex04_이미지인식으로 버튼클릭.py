@@ -1,4 +1,5 @@
 import pyautogui
+from pathlib import Path
 
 try:
     # 선택한 창만 캡쳐
@@ -15,6 +16,7 @@ except Exception as e:
 
 try:
     items = list(pyautogui.locateAllOnScreen("folder.png"))
+    
     print("items:", items)
 
     for i, b in enumerate(items):

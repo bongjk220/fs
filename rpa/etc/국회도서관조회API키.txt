@@ -1,0 +1,4 @@
+http://apis.data.go.kr/9720000/searchservice/basic?serviceKey=f687d185fc246eb77f6e3deabf5e81911db4464450b0e4821c074a2f86c2e8f7&pageno=1&displaylines=10&search=자료명,미국
+
+http://apis.data.go.kr/9720000/searchservice/detail?pageno=1&displaylines=10&search=자료명,생명&dbname=일반도서&option=발행년도,2000|발행년도,2010&serviceKey=
+f687d185fc246eb77f6e3deabf5e81911db4464450b0e4821c074a2f86c2e8f7
